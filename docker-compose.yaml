@@ -1,0 +1,10 @@
+services:
+  ffc-sfd-permissions:
+    build:
+      context: .
+      target: production
+    image: ffc-sfd-permissions
+    container_name: ffc-sfd-permissions
+    environment:
+      APPINSIGHTS_CLOUDROLE: ffc-sfd-permissions-local
+      APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
