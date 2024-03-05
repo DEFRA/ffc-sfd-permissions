@@ -1,0 +1,58 @@
+ {# Backstage scaffolder to render the file as is and to skip this content to interpret as template   #}
+{% extends '_layout.njk' %}
+
+{% from "govuk/components/button/macro.njk"       import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk"   import govukCheckboxes %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">{{pageTitle}}</h1>
+       <form action="/permissions/save">
+        {{ govukCheckboxes({
+          name: "settings",
+          fieldset: {
+            legend: {
+              text: "Manage your permissions",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "Select all that apply."
+          },
+          items: [
+            {
+              value: 'write',
+              text: "Write",
+              checked: write
+            },
+            {
+              value: 'read',
+              text: "Read",
+              checked: read
+            },
+            {
+              value: 'access',
+              text: "Access",
+              checked: access
+            }
+          ]
+        }) }}
+        {{ govukButton({
+            text: "Save",
+            attributes: {
+              id: "submit"
+            }
+          }) 
+        }}
+      </form> 
+      {{ govukWarningText({
+        text: "This is a demo application. Tread carefully.",
+        iconFallbackText: "Warning"
+      }) }}
+      
+    </div>
+  </div>
+{% endblock %}

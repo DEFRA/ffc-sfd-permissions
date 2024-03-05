@@ -1,14 +1,17 @@
-describe('Healthz test', () => {
-  const server = require('../../../../app/server')
+describe('/healthz test', () => {
+  process.env.AUTH_HOST = '__AUTH_HOST__'
+  const { createServer } = require('../../../../app/server')
+  let server = null
 
   beforeEach(async () => {
+    server = await createServer()
     await server.start()
   })
 
   test('GET /healthz route returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/healthz'
+      url: '/permissions/healthz'
     }
 
     const response = await server.inject(options)

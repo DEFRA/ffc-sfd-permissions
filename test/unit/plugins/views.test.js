@@ -22,7 +22,8 @@ describe('viewPlugin', () => {
     const src = 'test'
     const options = {
       environment: {},
-      compileOptions: {}
+      compileOptions: {},
+      path: []
     }
 
     view.options.engines.njk.compile(src, options)
@@ -32,9 +33,11 @@ describe('viewPlugin', () => {
     view.options.engines.njk.prepare(options, next)
     expect(nunjucks.configure).toHaveBeenCalledWith([
       path.join(options.relativeTo || process.cwd(), options.path),
+      'app/views',
       'node_modules/govuk-frontend/'
     ], {
-      autoescape: true
+      autoescape: true,
+      watch: false
     })
     expect(next).toHaveBeenCalled()
   })

@@ -1,14 +1,16 @@
-const homeRoutes = require('../../../app/routes/home')
+const indexRoutes = require('../../../app/routes')
+const saveRoutes = require('../../../app/routes/save')
 const healthyRoutes = require('../../../app/routes/healthy')
 const healthzRoutes = require('../../../app/routes/healthz')
-const staticRoutes = require('../../../app/routes/static')
+const assetsRoutes = require('../../../app/routes/assets')
 
 const router = require('../../../app/plugins/router')
 
-jest.mock('../../../app/routes/home', () => [{ path: '/home' }])
+jest.mock('../../../app/routes', () => [{ path: '/' }])
+jest.mock('../../../app/routes/save', () => [{ path: '/save' }])
 jest.mock('../../../app/routes/healthy', () => [{ path: '/healthy' }])
 jest.mock('../../../app/routes/healthz', () => [{ path: '/healthz' }])
-jest.mock('../../../app/routes/static', () => [{ path: '/static' }])
+jest.mock('../../../app/routes/assets', () => [{ path: '/assets' }])
 
 describe('router plugin', () => {
   test('should register routes when register is called', () => {
@@ -20,10 +22,11 @@ describe('router plugin', () => {
 
     expect(mockServer.route).toHaveBeenCalledWith(
       [].concat(
-        homeRoutes,
+        indexRoutes,
+        saveRoutes,
         healthyRoutes,
         healthzRoutes,
-        staticRoutes
+        assetsRoutes
       )
     )
   })
