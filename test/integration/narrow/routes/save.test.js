@@ -1,5 +1,4 @@
 describe('/save test', () => {
-  process.env.AUTH_HOST = '__AUTH_HOST__'
   const { createServer } = require('../../../../app/server')
   let server = null
 
