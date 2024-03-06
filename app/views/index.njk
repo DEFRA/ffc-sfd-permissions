@@ -3,6 +3,7 @@
 
 {% from "govuk/components/button/macro.njk"       import govukButton %}
 {% from "govuk/components/checkboxes/macro.njk"   import govukCheckboxes %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block content %}
   <div class="govuk-grid-row">
@@ -48,10 +49,10 @@
           }) 
         }}
       </form> 
-      {# {{ govukWarningText({
-        text: "This is a demo application. Tread carefully.",
+      {{ govukWarningText({
+        text: "This is a demo application.",
         iconFallbackText: "Warning"
-      }) }} #}
+      }) }}
       
     </div>
   </div>
