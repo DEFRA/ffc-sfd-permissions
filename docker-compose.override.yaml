@@ -9,7 +9,7 @@ services:
     container_name: ffc-sfd-permissions-development
     ports:
       - "3004:3000"
-      - "9005:9229"
+      - "9004:9229"
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json

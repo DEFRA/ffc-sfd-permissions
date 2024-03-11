@@ -2,4 +2,4 @@ services:
   ffc-sfd-permissions:
     command: npm run test:debug
     ports:
-      - "9005:9229"
+      - "9004:9229"
