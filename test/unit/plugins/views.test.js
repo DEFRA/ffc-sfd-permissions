@@ -34,7 +34,7 @@ describe('viewPlugin', () => {
     expect(nunjucks.configure).toHaveBeenCalledWith([
       path.join(options.relativeTo || process.cwd(), options.path),
       'app/views',
-      'node_modules/govuk-frontend/'
+      'node_modules/govuk-frontend/dist'
     ], {
       autoescape: true,
       watch: false
