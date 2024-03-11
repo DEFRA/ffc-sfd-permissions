@@ -19,7 +19,7 @@ container:
 # These may be changed. See here: https://github.com/DEFRA/adp-helm-library?tab=readme-ov-file#container-template
 livenessProbe:
   path: /permissions/healthz
-  port: 3004
+  port: 3007
   initialDelaySeconds: 20
   periodSeconds: 10
   failureThreshold: 3
@@ -28,7 +28,7 @@ livenessProbe:
 # These may be changed. See here: https://github.com/DEFRA/adp-helm-library?tab=readme-ov-file#container-template
 readinessProbe:
   path: /permissions/healthz
-  port: 3004
+  port: 3007
   initialDelaySeconds: 30
   periodSeconds: 10
   failureThreshold: 3
