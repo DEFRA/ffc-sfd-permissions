@@ -1,6 +1,6 @@
 {
   "name": "ffc-sfd-permissions",
-  "version": "0.2.12",
+  "version": "0.2.14",
   "description": "",
   "homepage": "github.com?owner=defra&repo=ffc-sfd-permissions&organization=defra",
   "main": "app/index.js",
