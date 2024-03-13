@@ -5,6 +5,6 @@ module.exports = {
   path: '/',
   options: {
     auth: false,
-    handler: (_request, h) => h.view('index', { read: true, write: true, access: true })
+    handler: (_request, h) => h.view('index')
   }
 }

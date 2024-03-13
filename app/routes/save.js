@@ -8,18 +8,14 @@ module.exports = {
     auth: false,
     validate: {
       query: {
-        settings: Joi.alternatives().try(Joi.string(), Joi.array()).default([])
+        preference: Joi.string().valid('sms', 'email', 'letter')
       }
     }
   },
   handler: (request, h) => {
-    const { settings } = request.query
-    const query = typeof settings === 'string' ? [settings] : settings
+    const { preference } = request.query
     return h.view('index', {
-      read: query.includes('read'),
-      write: query.includes('write'),
-      access: query.includes('access')
-    }
-    )
+      preference
+    })
   }
 }

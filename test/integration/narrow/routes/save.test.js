@@ -1,4 +1,6 @@
-describe('/save test', () => {
+const cheerio = require('cheerio')
+
+describe('/permissions/save test', () => {
   const { createServer } = require('../../../../app/server')
   let server = null
 
@@ -7,7 +9,7 @@ describe('/save test', () => {
     await server.start()
   })
 
-  test('GET /save route returns 200', async () => {
+  test('GET /permissions/save route returns 200', async () => {
     const options = {
       method: 'GET',
       url: '/permissions/save'
@@ -15,26 +17,37 @@ describe('/save test', () => {
 
     const response = await server.inject(options)
     expect(response.statusCode).toBe(200)
+
+    const $ = cheerio.load(response.payload)
+    expect($('.govuk-fieldset__heading').text()).toContain('Manage your preference')
   })
 
-  test('GET /save route works with multiple settings', async () => {
+  test('GET /permissions/save route works with email as preference', async () => {
     const options = {
       method: 'GET',
-      url: '/permissions/save?settings=read&settings=write&settings=access'
+      url: '/permissions/save?preference=email'
     }
 
     const response = await server.inject(options)
     expect(response.statusCode).toBe(200)
+    const $ = cheerio.load(response.payload)
+    expect($('#sms').attr('checked')).toBeFalsy()
+    expect($('#email').attr('checked')).toBeTruthy()
+    expect($('#letter').attr('checked')).toBeFalsy()
   })
 
-  test('GET /save route works with single setting', async () => {
+  test('GET /permissions/save route works with letter as preference', async () => {
     const options = {
       method: 'GET',
-      url: '/permissions/save?settings=read'
+      url: '/permissions/save?preference=letter'
     }
 
     const response = await server.inject(options)
     expect(response.statusCode).toBe(200)
+    const $ = cheerio.load(response.payload)
+    expect($('#sms').attr('checked')).toBeFalsy()
+    expect($('#email').attr('checked')).toBeFalsy()
+    expect($('#letter').attr('checked')).toBeTruthy()
   })
 
   afterEach(async () => {

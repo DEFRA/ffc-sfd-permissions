@@ -2,7 +2,7 @@
 {% extends '_layout.njk' %}
 
 {% from "govuk/components/button/macro.njk"       import govukButton %}
-{% from "govuk/components/checkboxes/macro.njk"   import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk"       import govukRadios %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block content %}
@@ -11,33 +11,33 @@
 
       <h1 class="govuk-heading-xl">{{pageTitle}}</h1>
        <form action="/permissions/save">
-        {{ govukCheckboxes({
-          name: "settings",
+       {{ govukRadios({
+          name: "preference",
           fieldset: {
             legend: {
-              text: "Manage your permissions",
+              text: "Manage your preference",
               isPageHeading: true,
               classes: "govuk-fieldset__legend--l"
             }
           },
-          hint: {
-            text: "Select all that apply."
-          },
           items: [
             {
-              value: 'write',
-              text: "Write",
-              checked: write
+              id: 'sms',
+              value: 'sms',
+              text: "SMS",
+              checked: preference == 'sms'
             },
             {
-              value: 'read',
-              text: "Read",
-              checked: read
+              id: 'email',
+              value: 'email',
+              text: "E-mail",
+              checked: preference == 'email'
             },
             {
-              value: 'access',
-              text: "Access",
-              checked: access
+              id: 'letter',
+              value: 'letter',
+              text: "Letter",
+              checked: preference == 'letter'
             }
           ]
         }) }}
