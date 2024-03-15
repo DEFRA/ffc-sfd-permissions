@@ -1,4 +1,6 @@
 const { GET } = require('../constants/http-verbs')
+const { savePreference } = require('../backend/api')
+
 const Joi = require('joi')
 
 module.exports = {
@@ -8,14 +10,13 @@ module.exports = {
     auth: false,
     validate: {
       query: {
-        preference: Joi.string().valid('sms', 'email', 'letter')
+        preference: Joi.string().valid('sms', 'email', 'letter').required()
       }
     }
   },
-  handler: (request, h) => {
-    const { preference } = request.query
-    return h.view('index', {
-      preference
-    })
+  handler: async (request, h) => {
+    const sbi = '1'
+    const preference = await savePreference(sbi, request.query.preference)
+    return h.view('index', preference)
   }
 }

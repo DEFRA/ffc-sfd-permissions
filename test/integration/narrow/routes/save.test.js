@@ -1,5 +1,9 @@
 const cheerio = require('cheerio')
 
+jest.mock('../../../../app/backend/api', () => ({
+  savePreference: jest.fn().mockResolvedValue({ preference: 'email' })
+}))
+
 describe('/permissions/save test', () => {
   const { createServer } = require('../../../../app/server')
   let server = null
@@ -12,7 +16,7 @@ describe('/permissions/save test', () => {
   test('GET /permissions/save route returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/permissions/save'
+      url: '/permissions/save?preference=email'
     }
 
     const response = await server.inject(options)
@@ -22,7 +26,7 @@ describe('/permissions/save test', () => {
     expect($('.govuk-fieldset__heading').text()).toContain('Manage your preference')
   })
 
-  test('GET /permissions/save route works with email as preference', async () => {
+  test('GET /permissions/save route works with a preference', async () => {
     const options = {
       method: 'GET',
       url: '/permissions/save?preference=email'
@@ -36,18 +40,14 @@ describe('/permissions/save test', () => {
     expect($('#letter').attr('checked')).toBeFalsy()
   })
 
-  test('GET /permissions/save route works with letter as preference', async () => {
+  test('GET /permissions/save route fails with incorrect preference value', async () => {
     const options = {
       method: 'GET',
-      url: '/permissions/save?preference=letter'
+      url: '/permissions/save?preference=raven'
     }
 
     const response = await server.inject(options)
-    expect(response.statusCode).toBe(200)
-    const $ = cheerio.load(response.payload)
-    expect($('#sms').attr('checked')).toBeFalsy()
-    expect($('#email').attr('checked')).toBeFalsy()
-    expect($('#letter').attr('checked')).toBeTruthy()
+    expect(response.statusCode).toBe(400)
   })
 
   afterEach(async () => {
