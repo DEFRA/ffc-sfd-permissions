@@ -14,11 +14,12 @@ deployment: {}
 # These may be changed. See here: https://github.com/DEFRA/adp-helm-library?tab=readme-ov-file#container-template
 container:
   memCpuTier: L
+  port: 3007
 
 # These may be changed. See here: https://github.com/DEFRA/adp-helm-library?tab=readme-ov-file#container-template
 livenessProbe:
-  path: /healthz
-  port: 3000
+  path: /permissions/healthz
+  port: 3007
   initialDelaySeconds: 20
   periodSeconds: 10
   failureThreshold: 3
@@ -26,8 +27,8 @@ livenessProbe:
 
 # These may be changed. See here: https://github.com/DEFRA/adp-helm-library?tab=readme-ov-file#container-template
 readinessProbe:
-  path: /healthy
-  port: 3000
+  path: /permissions/healthz
+  port: 3007
   initialDelaySeconds: 30
   periodSeconds: 10
   failureThreshold: 3
@@ -37,5 +38,8 @@ readinessProbe:
 # Your URL will be your <service-name>.<environment>.adp.defra.gov.uk for a front-end Web UI component. Azure Front Door is the Global Load Balancer, CDN and WAF. Nginx is the in-cluster ingress controller.
 ingress:
   class: nginx
-  endpoint: ffc-sfd-permissions
-  server: ffc-sfd-permissions.{ENVIRONMENT}.adp.defra.gov.uk
+  endpoint: ffc-sfd-landing-page
+  server: adp.defra.gov.uk
+  path: /permissions
+  type: minion
+

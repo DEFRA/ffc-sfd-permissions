@@ -8,8 +8,8 @@ services:
     image: ffc-sfd-permissions-development
     container_name: ffc-sfd-permissions-development
     ports:
-      - "3000:3000"
-      - "9229:9229"
+      - "3007:3007"
+      - "9007:9229"
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json

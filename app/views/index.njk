@@ -1,0 +1,59 @@
+ {# Backstage scaffolder to render the file as is and to skip this content to interpret as template   #}
+{% extends '_layout.njk' %}
+
+{% from "govuk/components/button/macro.njk"       import govukButton %}
+{% from "govuk/components/radios/macro.njk"       import govukRadios %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">{{pageTitle}}</h1>
+       <form action="/permissions/save">
+       {{ govukRadios({
+          name: "preference",
+          fieldset: {
+            legend: {
+              text: "Manage your preference",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              id: 'sms',
+              value: 'sms',
+              text: "SMS",
+              checked: preference == 'sms'
+            },
+            {
+              id: 'email',
+              value: 'email',
+              text: "E-mail",
+              checked: preference == 'email'
+            },
+            {
+              id: 'letter',
+              value: 'letter',
+              text: "Letter",
+              checked: preference == 'letter'
+            }
+          ]
+        }) }}
+        {{ govukButton({
+            text: "Save",
+            attributes: {
+              id: "submit"
+            }
+          }) 
+        }}
+      </form> 
+      {{ govukWarningText({
+        text: "This is a demo application.",
+        iconFallbackText: "Warning"
+      }) }}
+      
+    </div>
+  </div>
+{% endblock %}
