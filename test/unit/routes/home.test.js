@@ -1,6 +1,6 @@
-const home = require('../../../app/routes/home')
+const index = require('../../../app/routes/index')
 
-describe('/home', () => {
+describe('/index', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -10,7 +10,7 @@ describe('/home', () => {
       view: jest.fn()
     }
 
-    await home.options.handler(mockRequest, mockH)
+    await index.options.handler(mockRequest, mockH)
 
     expect(mockH.view).toHaveBeenCalled()
   })

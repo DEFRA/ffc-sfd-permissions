@@ -1,0 +1,1 @@
+process.env.AUTH_HOST = '__AUTH_HOST__'

@@ -36,5 +36,6 @@ module.exports = {
   ],
   testEnvironment: 'node',
   testPathIgnorePatterns: [],
-  verbose: true
+  verbose: true,
+  setupFiles: ['<rootDir>/.jest/envVars.js']
 }

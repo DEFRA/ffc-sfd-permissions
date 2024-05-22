@@ -1,13 +1,22 @@
+jest.mock('../../app/insights', () => {
+  return {
+    setup: jest.fn()
+  }
+})
+const appInsights = require('../../app/insights')
+
 const mockStart = jest.fn()
 jest.mock('../../app/server', () =>
-  jest.fn().mockResolvedValue({
-    start: mockStart,
-    info: {
-      uri: 'server-uri'
-    }
+  ({
+    createServer: jest.fn().mockResolvedValue({
+      start: mockStart,
+      info: {
+        uri: 'server-uri'
+      }
+    })
   })
 )
-const createServer = require('../../app/server')
+const { createServer } = require('../../app/server')
 
 describe('Server setup', () => {
   let spyExit
@@ -26,6 +35,7 @@ describe('Server setup', () => {
 
   test('start the server', async () => {
     require('../../app/index')
+    expect(appInsights.setup).toHaveBeenCalled()
     expect(createServer).toHaveBeenCalled()
   })
 
